@@ -19,7 +19,8 @@ a {
 
 .container-log {
     max-width: 450px;
-    border: 1px solid rgba(178, 173, 173, 0.561);;
+    border: 1px solid rgba(178, 173, 173, 0.561);
+    ;
     margin: auto;
     margin-top: 4rem;
     border-radius: 10px;
@@ -93,6 +94,8 @@ input[type="password"] {
     background-color: white;
     padding: 0 5px;
 }
+
+
 
 input[type="email"]:focus~.input-label {
     top: -7px;

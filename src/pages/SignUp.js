@@ -11,6 +11,7 @@ function SignUp() {
         const { name, value } = event.target;
         let isValid = true;
 
+// npm install react-router-dom
 
         if (name === 'firstName') {
             // Check if the first name contains only alphabets with no spaces or numbers
@@ -18,12 +19,12 @@ function SignUp() {
         } else if (name === 'lastName') {
             // Check if the first name contains only alphabets with no spaces or numbers
             isValid = /^[a-zA-Z]+$/.test(value);
-        } else if (name === 'uname') {
+        } else if (name === 'email') {
             // Check if the username has a length of at least  5 characters and can include numbers and alphabets
             isValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
         } else if (name === 'password') {
             // Check if the password contains numbers, special characters, and alphabets
-            isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(value);
+            isValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(value);
         } else if (name === 'cpass') {
             // Check if the confirm password matches the password
             console.log(value);
