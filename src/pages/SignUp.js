@@ -1,17 +1,19 @@
-import './SignUp.css';
+import styles from './SignUp.module.css';
 import signupLogo from '../images/logo-google.png'
 import { useState } from 'react';
 import { signupUser } from '../services/UserServices'
+import { useNavigate } from "react-router-dom";
 
 
 function SignUp() {
-    const [userdetails, setDetails] = useState({ firstName: "", lastName: "", email: "",service:"user", password: "", cpass: "" })
+    const [userdetails, setDetails] = useState({ firstName: "", lastName: "", email: "", service: "user", password: "", cpass: "" })
     const [formValid, setFormValid] = useState(true);
+    const navigate = useNavigate();
     const handleChange = (event) => {
         const { name, value } = event.target;
         let isValid = true;
 
-// npm install react-router-dom
+        // npm install react-router-dom
 
         if (name === 'firstName') {
             // Check if the first name contains only alphabets with no spaces or numbers
@@ -51,6 +53,7 @@ function SignUp() {
         if (formValid) {
             signupUser(userdetails);
             console.log(userdetails);
+            navigate('/login');
 
             // Proceed with form submission or other actions
         } else {
@@ -72,8 +75,8 @@ function SignUp() {
                     <div className="inputs">
                         <input type="text" name="firstName" id="text" className="input" placeholder='First Name*' onChange={handleChange} />
                         <input type="text" name="lastName" id="text" className="input" placeholder='Last Name*' onChange={handleChange} />
-                        <div className='username'>
-                            <input type="text" name="email" id="text-username" className="input" placeholder='username*' onChange={handleChange} />
+                        <div className='email'>
+                            <input type="email" name="email" id="text-email" className="input" placeholder='email*' onChange={handleChange} />
                             <label style={{ fontSize: "0.7em" }}>you can use letters, numbers & periods</label>
                             <br />
                             <p className='p1'>Use my current email instead</p>

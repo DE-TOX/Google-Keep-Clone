@@ -66,11 +66,25 @@ input[type="text"] {
     border-radius: 5px;
 }
 
+input[type="email"] {
+    display: inline-block;
+    border: 1px solid rgb(39, 39, 39);
+    font-size: 16px;
+    font-weight: 200;
+    width: 47%;
+    height: 55px;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 5px;
+}
+
 input:hover {
     border: 2px solid #1a73e8;
 }
 
-#text-username {
+#text-email {
     display: block;
     margin-bottom: 0;
     width: 97%
@@ -89,7 +103,7 @@ label {
     display: block;
 }
 
-.username {
+.email {
     width: 100%;
 }
 
@@ -169,6 +183,7 @@ label {
     .account-img {
         display: none;
     }
+
     .form {
         width: 100%;
     }
