@@ -1,4 +1,4 @@
-import styles from './SignUp.module.css';
+import './SignUp.css';
 import signupLogo from '../images/logo-google.png'
 import { useState } from 'react';
 import { signupUser } from '../services/UserServices'

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { loginUser } from '../services/UserServices';
 import { useNavigate } from "react-router-dom";
 // import Box from '@mui/material/Box';
-import styles from'./Login.module.css';
+import './Login.css';
 
 function Login() {
 
@@ -40,12 +40,12 @@ function Login() {
                     <p class="heading">Use your Google Account</p>
 
                 </div>
-                <div class={styles.inputs}>
+                <div class="inputs">
 
 
-                    <input type="email" name="email" id="email" class={styles.input} onChange={handleChange} />
+                    <input type="email" name="email" id="email" class="input" onChange={handleChange} />
                     <label for="email" class="input-label">Email or phone</label>
-                    <input type="password" name="password" id="password" class={styles.input} onChange={handleChange} />
+                    <input type="password" name="password" id="password" class="input" onChange={handleChange} />
                     <label for="password" class="input-label-pass">Password</label>
 
                 </div>

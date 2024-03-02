@@ -19,12 +19,13 @@ import { addNotes } from "../services/NoteServices";
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import BrushOutlinedIcon from '@mui/icons-material/BrushOutlined';
 import styles from './CreateNote.module.css'
+import { Hidden } from "@mui/material";
 
 
 
 
 
-function CreateNote() {
+function CreateNote({ updateNoteList }) {
 
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -46,9 +47,13 @@ function CreateNote() {
         "isDeleted": false,
         "color": "#ffffff"
     }
-    const handleCreateNote = () => {
+    const handleCreateNote = async () => {
         setIsFirstInputClicked(false)
-        addNotes(noteObj)
+        const response = await addNotes(noteObj)
+        noteObj.title = ""
+        noteObj.description = ""
+        updateNoteList("add", response?.data?.status?.details)
+
     }
 
     const [isFirstInputClicked, setIsFirstInputClicked] = useState(false);
@@ -60,53 +65,56 @@ function CreateNote() {
 
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: "15px" }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: "15px", overflow: Hidden }}>
                 {!isFirstInputClicked ? (
-                    <div className={styles.container} style={{ width: "100vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
-                        <input className={styles.input_text} style={{ width: "25%", border: "none" }} type="text" placeholder="Take a note..." onClick={handleFirstInputClick} />
+                    <div style={{ width: "40vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px", boxShadow: "5px 5px 10px black", borderRadius: "5px", height: "50px" }} onClick={handleFirstInputClick}>
+                        {/* <input className={styles.input_text} style={{ width: "25%", border: "none" }} type="text" placeholder="Take a note..."  /> */}
+                        <span style={{ width: "75%", border: "none", alignItems: "" }}>Take a note ...</span>
                         <CheckBoxOutlinedIcon /><BrushOutlinedIcon /><ImageOutlinedIcon />
                     </div>
                 ) : (
                     <>
-                        <div className={styles.container} style={{ width: "100vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
-                            <input className={styles.input_text} style={{ width: "30%", border: "none" }} type="text" placeholder="Title" onChange={(e) => { noteObj.title = e.target.value }} />
-                        </div>
-                        <div className={styles.container} style={{ width: "100vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
-                            <input className={styles.input_text} style={{ width: "30%", border: "none" }} type="text" placeholder="Take a note..." onChange={(e) => { noteObj.description = e.target.value }} />
-                        </div>
-                        <div style={{ width: "100vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
-                            <NotificationsOutlinedIcon />
-                            <PersonAddAltOutlinedIcon />
-                            <ColorLensOutlinedIcon />
-                            <ImageOutlinedIcon />
-                            <ArchiveOutlinedIcon />
-                            <Button
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick}
-                                sx={{ minWidth: 0 }}
-                            ><MoreVertOutlinedIcon /></Button>
-                            <UndoOutlinedIcon />
-                            <RedoOutlinedIcon />
-                            <Button onClick={handleCreateNote}>Close</Button>
+                        <div style={{ boxShadow: "5px 5px 17px black", borderRadius: "5px" }}>
+                            <div style={{ width: "40vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px", marginBottom: "10px" }}>
+                                <input style={{ width: "75%", border: "none" }} type="text" placeholder="Title" onChange={(e) => { noteObj.title = e.target.value }} />
+                            </div>
+                            <div style={{ width: "40vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
+                                <input style={{ width: "75%", border: "none" }} type="text" placeholder="Take a note..." onChange={(e) => { noteObj.description = e.target.value }} />
+                            </div>
+                            <div style={{ width: "40vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "15px" }}>
+                                <NotificationsOutlinedIcon />
+                                <PersonAddAltOutlinedIcon />
+                                <ColorLensOutlinedIcon />
+                                <ImageOutlinedIcon />
+                                <ArchiveOutlinedIcon />
+                                <Button
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={handleClick}
+                                    sx={{ minWidth: 0, color: "inherit" }}
+                                ><MoreVertOutlinedIcon /></Button>
+                                <UndoOutlinedIcon />
+                                <RedoOutlinedIcon />
+                                <Button onClick={handleCreateNote} sx={{ marginLeft: 5 }}>Close</Button>
 
-                            <Menu
-                                id="basic-menu"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                MenuListProps={{
-                                    'aria-labelledby': 'basic-button',
-                                }}
-                            >
-                                <MenuItem onClick={handleClose}>Add Label</MenuItem>
-                                <MenuItem onClick={handleClose}>Add Drawing</MenuItem>
-                                <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>
-                            </Menu>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    <MenuItem onClick={handleClose}>Add Label</MenuItem>
+                                    <MenuItem onClick={handleClose}>Add Drawing</MenuItem>
+                                    <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>
+                                </Menu>
 
 
 
+                            </div>
                         </div>
                     </>
                 )}
