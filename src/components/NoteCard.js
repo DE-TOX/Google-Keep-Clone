@@ -13,15 +13,17 @@ import Button from "@mui/material/Button";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOutlined';
-import { archiveNotes,trashNotes } from "../services/NoteServices";
+import { archiveNotes, trashNotes } from "../services/NoteServices";
 
 
 
-function NoteCard({ updateNoteList, noteObj }) {
+function NoteCard({ updateNoteList, noteObj, widthCard }) {
 
     // const { noteObj } = props
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
+    const [isHovered, setIsHovered] = useState(false);
     // const [moreMenuOpen, setMoreMenu] = useState(false)
     const open = Boolean(anchorEl);
     const open2 = Boolean(anchorEl2);
@@ -46,26 +48,28 @@ function NoteCard({ updateNoteList, noteObj }) {
                 noteIdList: [noteObj?.id],
                 isArchived: true
             })
-            updateNoteList("archive",noteObj.id)
+            updateNoteList("archive", noteObj)
         }
         else if (action === "trash") {
             trashNotes({
                 noteIdList: [noteObj?.id],
                 isDeleted: true
             })
+            handleClose()
             updateNoteList("trash", noteObj)
         }
         else {
+            console.log(noteObj);
             noteObj.color = action
+            console.log(noteObj);
             updateNoteList("color", noteObj)
         }
 
     }
 
-    const [isHovered, setIsHovered] = useState(false);
     return (
         <>
-            <Card variant="outlined" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} spacing={3} sx={{ width: 260, backgroundColor: noteObj.color }}>
+            <Card variant="outlined" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} spacing={12} sx={{ width: widthCard, backgroundColor: noteObj.color, boxShadow: "1px 1px 5px black", margin: "5px" }}>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom wra>
                     </Typography>
@@ -105,12 +109,12 @@ function NoteCard({ updateNoteList, noteObj }) {
                         }}
                     >
                         <MenuItem onClick={() => handleNotesOperation("trash")} >Delete note</MenuItem>
-                        <MenuItem onClick={handleClose}>Add label</MenuItem>
+                        {/* <MenuItem onClick={handleClose}>Add label</MenuItem>
                         <MenuItem onClick={handleClose}>Add drawing</MenuItem>
                         <MenuItem onClick={handleClose}>Make a copy</MenuItem>
                         <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>
                         <MenuItem onClick={handleClose}>Copy to Google Docs</MenuItem>
-                        <MenuItem onClick={handleClose}>Version history</MenuItem>
+                        <MenuItem onClick={handleClose}>Version history</MenuItem> */}
                     </Menu>
                     <Menu
                         id="color-menu"
@@ -124,17 +128,17 @@ function NoteCard({ updateNoteList, noteObj }) {
                         <MenuItem onClick={handleClose2}><div style={{ width: "375px", height: "35px", borderRadius: "7px", boxShadow: "10px 9px 13px 1px lightgray" }}>
                             <div style={{ display: "flex", gap: "8px" }}>
                                 <FormatColorResetOutlinedIcon style={{ borderRadius: "50%", border: "solid black 1px" }} />
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#FAAFA8", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#FAAFA8")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#f39f76", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#f39f76")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#fff8b8", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#fff8b8")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#e2f6d3", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#e2f6d3")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#b4ddd3", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#b4ddd3")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#d4e4ed", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#d4e4ed")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#aeccdc", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#aeccdc")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#d3bfdb", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#d3bfdb")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#f6e2dd", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#f6e2dd")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#e9e3d4", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#e9e3d4")}></div>
-                                <div style={{ width: "25px", height: "25px", backgroundColor: "#efeff1", borderRadius: "50%" }} onClick={()=>handleNotesOperation("#efeff1")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#FAAFA8", borderRadius: "50%" }} onClick={() => handleNotesOperation("#FAAFA8")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#f39f76", borderRadius: "50%" }} onClick={() => handleNotesOperation("#f39f76")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#fff8b8", borderRadius: "50%" }} onClick={() => handleNotesOperation("#fff8b8")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#e2f6d3", borderRadius: "50%" }} onClick={() => handleNotesOperation("#e2f6d3")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#b4ddd3", borderRadius: "50%" }} onClick={() => handleNotesOperation("#b4ddd3")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#d4e4ed", borderRadius: "50%" }} onClick={() => handleNotesOperation("#d4e4ed")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#aeccdc", borderRadius: "50%" }} onClick={() => handleNotesOperation("#aeccdc")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#d3bfdb", borderRadius: "50%" }} onClick={() => handleNotesOperation("#d3bfdb")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#f6e2dd", borderRadius: "50%" }} onClick={() => handleNotesOperation("#f6e2dd")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#e9e3d4", borderRadius: "50%" }} onClick={() => handleNotesOperation("#e9e3d4")}></div>
+                                <div style={{ width: "25px", height: "25px", backgroundColor: "#efeff1", borderRadius: "50%" }} onClick={() => handleNotesOperation("#efeff1")}></div>
                             </div>
                         </div></MenuItem>
                     </Menu>

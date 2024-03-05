@@ -3,6 +3,7 @@ const baseUrl = "https://fundoonotes.incubation.bridgelabz.com/api/notes/"
 
 const configForNotes = () => {
     const accessToken = localStorage.getItem("token")
+    console.log(accessToken)
     const header = {
         headers: {
             "Content-Type": "application/json",
@@ -14,7 +15,7 @@ const configForNotes = () => {
 export const getNotes = async () => {
     try {
         const response = await axios.get(`${baseUrl}getNotesList`, configForNotes());
-        console.log(response.data.data.data);
+        console.log(response.data.data);
         return (response.data.data.data)
         // window.localStorage.setItem(, value);
         // Handle successful signup (e.g., redirect to login page)
@@ -29,7 +30,7 @@ export const addNotes = async (noteObj) => {
     try {
         const response = await axios.post(`${baseUrl}addNotes`, noteObj, configForNotes());
         return response
-    }catch (error) {
+    } catch (error) {
         console.error(error);
         // Handle errors (e.g., show an error message)
     }
@@ -37,7 +38,7 @@ export const addNotes = async (noteObj) => {
 }
 
 
-export const archiveNotes = async(noteObj) =>{
+export const archiveNotes = async (noteObj) => {
     try {
         const response = await axios.post(`${baseUrl}archiveNotes`, noteObj, configForNotes())
         return response
@@ -60,7 +61,7 @@ export const getArchive = async () => {
 
 };
 
-export const trashNotes = async(noteObj) =>{
+export const trashNotes = async (noteObj) => {
     try {
         const response = await axios.post(`${baseUrl}trashNotes`, noteObj, configForNotes())
         return response

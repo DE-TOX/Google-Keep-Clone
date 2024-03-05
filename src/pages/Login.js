@@ -16,12 +16,19 @@ function Login() {
             [name]: value
         }));
     }
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         event.preventDefault();
-        console.log(usercredentials);
-        const response = loginUser(usercredentials);
-        if (response) {
-            navigate("/dashboard/notes")
+        try {
+
+            const response = await loginUser(usercredentials);
+            if (response.data && response.data.id) {
+                navigate("/dashboard/notes")
+            } else {
+                alert("Credentials required");
+            }
+        } catch (error) {
+            console.error("Error logging in:", error);
+            alert("Error logging in. Please check your credentials.");
         }
     };
 

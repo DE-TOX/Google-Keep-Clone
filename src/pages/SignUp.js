@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function SignUp() {
-    const [userdetails, setDetails] = useState({ firstName: "", lastName: "", email: "", service: "user", password: "", cpass: "" })
+    const [userdetails, setDetails] = useState({ firstName: "", lastName: "", email: "", service: "advance", password: "", cpass: "" })
     const [formValid, setFormValid] = useState(true);
     const navigate = useNavigate();
     const handleChange = (event) => {
@@ -76,7 +76,7 @@ function SignUp() {
                         <input type="text" name="firstName" id="text" className="input" placeholder='First Name*' onChange={handleChange} />
                         <input type="text" name="lastName" id="text" className="input" placeholder='Last Name*' onChange={handleChange} />
                         <div className='email'>
-                            <input type="email" name="email" id="text-email" className="input" placeholder='email*' onChange={handleChange} />
+                            <input type='text' name="email" id="text-email" className="input" placeholder='email*' onChange={handleChange} />
                             <label style={{ fontSize: "0.7em" }}>you can use letters, numbers & periods</label>
                             <br />
                             <p className='p1'>Use my current email instead</p>
