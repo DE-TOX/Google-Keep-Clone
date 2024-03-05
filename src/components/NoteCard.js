@@ -20,7 +20,7 @@ import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 
 
 
-function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList,updateTrashList }) {
+function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updateTrashList }) {
 
     // const { noteObj } = props
 
@@ -28,7 +28,6 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList,update
     const [anchorEl2, setAnchorEl2] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
     const location = useLocation();
-    console.log(location);
     // const [moreMenuOpen, setMoreMenu] = useState(false)
     const open = Boolean(anchorEl);
     const open2 = Boolean(anchorEl2);
@@ -69,14 +68,14 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList,update
                 isArchived: false
             })
             updateArchiveList("unarchive", noteObj)
-        }else if (action === "restore") {
+        } else if (action === "restore") {
             trashNotes({
                 noteIdList: [noteObj?.id],
                 isDeleted: false
             })
             handleClose()
             updateTrashList("restore", noteObj)
-        }else if (action === "delete") {
+        } else if (action === "delete") {
             deleteForever({
                 noteIdList: [noteObj?.id]
             })

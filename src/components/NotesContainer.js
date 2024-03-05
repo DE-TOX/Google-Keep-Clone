@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import NoteCard from "./NoteCard";
 import CreateNote from "./CreateNote";
+import ViewModeContext from './ViewModeContext';
 
 
 
@@ -13,8 +14,9 @@ import CreateNote from "./CreateNote";
 
 
 
-function NoteContainer() {
+function NoteContainer({updateView}) {
     const [noteList, setNoteList] = useState([])
+    const { viewMode, setViewMode } = useContext(ViewModeContext);
     // const notes = []
     // async  ()=>{
     //     notes = await getNotes()
@@ -42,7 +44,7 @@ function NoteContainer() {
 
 
         fetchNotes();
-
+        console.log(updateView);
         return () => {
 
             console.log('Component Unmounted');
@@ -70,7 +72,7 @@ function NoteContainer() {
 
                 <CreateNote style={{ overflow: "hidden" }} updateNoteList={updateNoteList} />
 
-                {false ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", justifyContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
+                {viewMode==='grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", justifyContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
                     {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)}
                 </div> :
                     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "7px", justifyContent: "center", alignItems: "center", marginBottom: 22 }}>

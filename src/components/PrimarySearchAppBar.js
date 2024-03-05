@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     height: '95%',
@@ -65,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar({ onMenuButtonClick }) {
+export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     // const [ viewMode, setViewMode ] = React.useState("grid");
@@ -76,6 +77,7 @@ export default function PrimarySearchAppBar({ onMenuButtonClick }) {
         // setViewMode(newViewMode);
 
         setViewMode(viewMode === 'grid' ? 'list' : 'grid');
+        updateView(viewMode)
     };
     const navigate = useNavigate();
     const isMenuOpen = Boolean(anchorEl);
