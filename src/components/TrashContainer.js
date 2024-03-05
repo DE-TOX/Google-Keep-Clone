@@ -24,13 +24,20 @@ function TrashContainer() {
             console.log("Component Unmounted");
         }
     },[])
-    // useEffect(async () => {
-    //     const notes = await getTrash()
-    //     setTrashList(notes)
-    //     return () => {
-    //         console.log("Component Unmounted");
-    //     }
-    // }, [])
+    const updateTrashList = (action, noteObj) => {
+        if (action === "restore") {
+            setTrashList(trashList.filter(note => note.id !== noteObj.id));
+        }
+        else if(action === "delete"){
+            setTrashList(trashList.filter(note => note.id !== noteObj.id))
+        }
+        else {
+            setTrashList(trashList.map((note) => {
+                if (note.id === noteObj.id) return noteObj
+                return note
+            }))
+        }
+    }
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
 
@@ -39,7 +46,7 @@ function TrashContainer() {
 
 
             <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "7px", justifyContent: "center", alignItems: "center", overflow: "hidden" }}>
-                {trashList.length ? trashList?.map(ele => { return <NoteCard noteObj={ele} /> }) : (<span> Loading....</span>)}
+                {trashList.length ? trashList?.map(ele => { return <NoteCard noteObj={ele} updateTrashList={updateTrashList} /> }) : (<span> Loading....</span>)}
                 {/* <NoteCard /*updateNoteList={updateNoteList} noteObj={{ "title": "nvr", "description": "ekwl" }} /> */}
             </div>
         </div>

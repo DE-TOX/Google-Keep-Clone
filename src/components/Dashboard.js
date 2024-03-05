@@ -14,7 +14,6 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
-import ViewModeContext from "./ViewContext";
 
 
 function Dashboard() {
@@ -118,9 +117,7 @@ function Dashboard() {
 
                 </Box>
             </SwipeableDrawer>
-            <ViewModeContext.Provider value={{ viewMode, setViewMode }}>
                 <Outlet />
-            </ViewModeContext.Provider>
         </>
     )
 }

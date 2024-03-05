@@ -21,15 +21,25 @@ function ArciveContainer() {
             console.log("Component Unmounted");
         }
     },[])
+
+    const updateArchiveList = (action, noteObj) => {
+        if (action === "trash" || action ==="unarchive") {
+            setArchiveList(archiveList.filter(note => note.id !== noteObj.id));
+        }
+        else {
+            setArchiveList(archiveList.map((note) => {
+                if (note.id === noteObj.id) return noteObj
+                return note
+            }))
+        }
+    }
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
 
             {/* <CreateNote style={{ overflow: "hidden" }} updateNoteList={updateNoteList} /> */}
 
-
-
             <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "7px", justifyContent: "center", alignItems: "center", overflow: "hidden" }}>
-                {archiveList.length ? archiveList?.map(ele => { return <NoteCard noteObj={ele} /> }) : (<span> Loading....</span>)}
+                {archiveList.length ? archiveList?.map(ele => { return <NoteCard noteObj={ele} updateArchiveList={updateArchiveList}/> }) : (<span> Loading....</span>)}
                 {/* <NoteCard /*updateNoteList={updateNoteList} noteObj={{ "title": "nvr", "description": "ekwl" }} /> */}
             </div>
         </div>

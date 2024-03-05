@@ -76,6 +76,10 @@ function CreateNote({ updateNoteList }) {
             noteObj.description = ""
             updateNoteList("add", response?.data?.status?.details)
         }
+        setNoteObj(prevNoteObj => ({
+            ...prevNoteObj,
+            color:  "#ffffff"
+        }));
 
     }
 

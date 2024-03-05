@@ -84,3 +84,26 @@ export const getTrash = async () => {
     }
 
 };
+
+export const updateColor = async (noteObj) => {
+    try {
+        const response = await axios.post(`${baseUrl}changesColorNotes`, noteObj, configForNotes());
+        console.log(response.data.data.data);
+        return (response.data.data.data)
+        // window.localStorage.setItem(, value);
+        // Handle successful signup (e.g., redirect to login page)
+    } catch (error) {
+        console.error(error);
+        // Handle errors (e.g., show an error message)
+    }
+
+};
+
+export const deleteForever = async (noteObj) => {
+    try {
+        const response = await axios.post(`${baseUrl}deleteForeverNotes`, noteObj, configForNotes())
+        return response
+    } catch (error) {
+        console.error(error);
+    }
+}

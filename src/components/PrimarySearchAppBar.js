@@ -19,7 +19,6 @@ import SplitscreenSharpIcon from '@mui/icons-material/SplitscreenSharp';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import AppsSharpIcon from '@mui/icons-material/AppsSharp';
 import { useNavigate } from 'react-router-dom';
-import ViewModeContext from './ViewContext';
 
 
 
@@ -66,16 +65,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar({ onMenuButtonClick}) {
+export default function PrimarySearchAppBar({ onMenuButtonClick }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     // const [ viewMode, setViewMode ] = React.useState("grid");
-    const { viewMode, setViewMode } = React.useContext(ViewModeContext);
+    const [viewMode, setViewMode] = React.useState("grid");
 
     const handleViewModeChange = () => {
         // const newViewMode = viewMode === 'grid' ? 'list' : 'grid';
         // setViewMode(newViewMode);
-        
+
         setViewMode(viewMode === 'grid' ? 'list' : 'grid');
     };
     const navigate = useNavigate();
@@ -188,13 +187,13 @@ export default function PrimarySearchAppBar({ onMenuButtonClick}) {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block'}, color: "rgba(0, 0, 0, 0.54)" ,mr:25 }}
+                        sx={{ display: { xs: 'none', sm: 'block' }, color: "rgba(0, 0, 0, 0.54)", mr: 25 }}
                     >
                         Fundo
                     </Typography>
-                    <Search border = "2px solid black">
+                    <Search border="2px solid black">
                         <SearchIconWrapper >
-                            <SearchIcon sx={{color:"rgba(0, 0, 0, 0.54)"}} />
+                            <SearchIcon sx={{ color: "rgba(0, 0, 0, 0.54)" }} />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
@@ -212,9 +211,9 @@ export default function PrimarySearchAppBar({ onMenuButtonClick}) {
                         <IconButton
                             size="large"
                             color="black"
-                            onClick={handleViewModeChange}> 
-              {viewMode === 'grid' ? <SplitscreenSharpIcon /> : <GridViewIcon />}
-                            
+                            onClick={handleViewModeChange}>
+                            {viewMode === 'grid' ? <SplitscreenSharpIcon /> : <GridViewIcon />}
+
                         </IconButton>
                         <IconButton
                             size="large"
@@ -226,7 +225,7 @@ export default function PrimarySearchAppBar({ onMenuButtonClick}) {
                             size="large"
                             color="black"
                         >
-                            <AppsSharpIcon sx= {{ml:4}}/>
+                            <AppsSharpIcon sx={{ ml: 4 }} />
                         </IconButton>
                         <IconButton
                             size="large"

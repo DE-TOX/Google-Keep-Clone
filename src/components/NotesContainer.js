@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import NoteCard from "./NoteCard";
 import CreateNote from "./CreateNote";
-import ViewModeContext from "./ViewContext";
 
 
 
@@ -16,8 +15,6 @@ import ViewModeContext from "./ViewContext";
 
 function NoteContainer() {
     const [noteList, setNoteList] = useState([])
-    const { viewMode } = useContext(ViewModeContext);
-    console.log(viewMode);
     // const notes = []
     // async  ()=>{
     //     notes = await getNotes()
@@ -42,7 +39,7 @@ function NoteContainer() {
 
 
     useEffect(() => {
-        
+
 
         fetchNotes();
 

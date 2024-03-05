@@ -13,17 +13,22 @@ import Button from "@mui/material/Button";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOutlined';
-import { archiveNotes, trashNotes } from "../services/NoteServices";
+import { archiveNotes, deleteForever, trashNotes, updateColor } from "../services/NoteServices";
+import { useLocation } from "react-router-dom";
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 
 
 
-function NoteCard({ updateNoteList, noteObj, widthCard }) {
+
+function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList,updateTrashList }) {
 
     // const { noteObj } = props
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
     const [isHovered, setIsHovered] = useState(false);
+    const location = useLocation();
+    console.log(location);
     // const [moreMenuOpen, setMoreMenu] = useState(false)
     const open = Boolean(anchorEl);
     const open2 = Boolean(anchorEl2);
@@ -58,11 +63,35 @@ function NoteCard({ updateNoteList, noteObj, widthCard }) {
             handleClose()
             updateNoteList("trash", noteObj)
         }
+        else if (action === "unarchive") {
+            archiveNotes({
+                noteIdList: [noteObj?.id],
+                isArchived: false
+            })
+            updateArchiveList("unarchive", noteObj)
+        }else if (action === "restore") {
+            trashNotes({
+                noteIdList: [noteObj?.id],
+                isDeleted: false
+            })
+            handleClose()
+            updateTrashList("restore", noteObj)
+        }else if (action === "delete") {
+            deleteForever({
+                noteIdList: [noteObj?.id]
+            })
+            updateTrashList("delete", noteObj)
+        }
         else {
             console.log(noteObj);
             noteObj.color = action
+            updateColor({
+                noteIdList: [noteObj?.id],
+                color: action
+            })
             console.log(noteObj);
             updateNoteList("color", noteObj)
+
         }
 
     }
@@ -92,12 +121,26 @@ function NoteCard({ updateNoteList, noteObj, widthCard }) {
                         onClick={handleClick2}
                     ><ColorLensOutlinedIcon sx={{ fontSize: "15px" }} /></Button>
                     <Button color="inherit" sx={{ minWidth: 0 }}><ImageOutlinedIcon sx={{ fontSize: "15px" }} /></Button>
-                    <Button color="inherit" sx={{ minWidth: 0 }}><ArchiveOutlinedIcon sx={{ fontSize: "15px" }} onClick={() => handleNotesOperation("archive")} /></Button>
+
+
+                    {location.pathname === '/dashboard/archive' ? (
+                        <Button color="inherit" sx={{ minWidth: 0 }}>
+                            {/* Render a different icon or style the current icon differently */}
+                            <UnarchiveOutlinedIcon sx={{ fontSize: "15px" }} onClick={() => handleNotesOperation("unarchive")} />
+                        </Button>
+                    ) : (
+                        <Button color="inherit" sx={{ minWidth: 0 }}>
+                            <ArchiveOutlinedIcon sx={{ fontSize: "15px" }} onClick={() => handleNotesOperation("archive")} />
+                        </Button>
+                    )}
+
+
+                    {/* <Button color="inherit" sx={{ minWidth: 0 }}><ArchiveOutlinedIcon sx={{ fontSize: "15px" }} onClick={() => handleNotesOperation("archive")} /></Button> */}
                     <Button color="inherit" sx={{ minWidth: 0 }}
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}><MoreVertOutlinedIcon sx={{ fontSize: "15px" }} /></Button>
+                        onClick={handleClick} ><MoreVertOutlinedIcon sx={{ fontSize: "15px" }} /></Button>
 
                     <Menu
                         id="basic-menu"
@@ -107,14 +150,13 @@ function NoteCard({ updateNoteList, noteObj, widthCard }) {
                         MenuListProps={{
                             'aria-labelledby': 'basic-button',
                         }}
-                    >
-                        <MenuItem onClick={() => handleNotesOperation("trash")} >Delete note</MenuItem>
-                        {/* <MenuItem onClick={handleClose}>Add label</MenuItem>
-                        <MenuItem onClick={handleClose}>Add drawing</MenuItem>
-                        <MenuItem onClick={handleClose}>Make a copy</MenuItem>
-                        <MenuItem onClick={handleClose}>Show Checkboxes</MenuItem>
-                        <MenuItem onClick={handleClose}>Copy to Google Docs</MenuItem>
-                        <MenuItem onClick={handleClose}>Version history</MenuItem> */}
+                    >{location.pathname === '/dashboard/trash' ? (<>
+                        <MenuItem onClick={() => handleNotesOperation("restore")} >Restore</MenuItem>
+                        <MenuItem onClick={() => handleNotesOperation("delete")} >Delete Forever</MenuItem> </>)
+                        :
+                        (<MenuItem onClick={() => handleNotesOperation("trash")} >Trash</MenuItem>)
+                        }
+
                     </Menu>
                     <Menu
                         id="color-menu"
@@ -127,7 +169,7 @@ function NoteCard({ updateNoteList, noteObj, widthCard }) {
                     >
                         <MenuItem onClick={handleClose2}><div style={{ width: "375px", height: "35px", borderRadius: "7px", boxShadow: "10px 9px 13px 1px lightgray" }}>
                             <div style={{ display: "flex", gap: "8px" }}>
-                                <FormatColorResetOutlinedIcon style={{ borderRadius: "50%", border: "solid black 1px" }} />
+                                <FormatColorResetOutlinedIcon style={{ borderRadius: "50%", border: "solid black 1px" }} onClick={() => handleNotesOperation("#Ffffff")} />
                                 <div style={{ width: "25px", height: "25px", backgroundColor: "#FAAFA8", borderRadius: "50%" }} onClick={() => handleNotesOperation("#FAAFA8")}></div>
                                 <div style={{ width: "25px", height: "25px", backgroundColor: "#f39f76", borderRadius: "50%" }} onClick={() => handleNotesOperation("#f39f76")}></div>
                                 <div style={{ width: "25px", height: "25px", backgroundColor: "#fff8b8", borderRadius: "50%" }} onClick={() => handleNotesOperation("#fff8b8")}></div>
