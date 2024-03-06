@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Accordion from "@mui/material/Accordion";
@@ -26,8 +26,7 @@ import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOu
 
 
 
-function CreateNote({ updateNoteList }) {
-
+function CreateNote({ updateNoteList, handleEdit}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
@@ -78,7 +77,7 @@ function CreateNote({ updateNoteList }) {
         }
         setNoteObj(prevNoteObj => ({
             ...prevNoteObj,
-            color:  "#ffffff"
+            color: "#ffffff"
         }));
 
     }
@@ -86,7 +85,9 @@ function CreateNote({ updateNoteList }) {
     const [isFirstInputClicked, setIsFirstInputClicked] = useState(false);
 
     const handleFirstInputClick = () => {
+
         setIsFirstInputClicked(true);
+
     };
 
 

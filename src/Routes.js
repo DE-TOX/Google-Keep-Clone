@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import ArciveContainer from "./components/ArchiveContainer";
 import TrashContainer from "./components/TrashContainer";
 import NoteContainer from "./components/NotesContainer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export const Routers = () => {
     const AppRoutes = createBrowserRouter([
@@ -18,12 +19,12 @@ export const Routers = () => {
         },
         {
             path: "/dashboard",
-            element: <Dashboard />,
+            element: <ProtectedRoute><Dashboard /></ProtectedRoute>,
 
             children: [
-                { path: "notes", element: <NoteContainer /> },
-                { path: "archive", element: <ArciveContainer /> },
-                { path: "trash", element: <TrashContainer /> }
+                { path: "notes", element: <ProtectedRoute><NoteContainer /> </ProtectedRoute>},
+                { path: "archive", element: <ProtectedRoute><ArciveContainer /> </ProtectedRoute>},
+                { path: "trash", element: <ProtectedRoute><TrashContainer /></ProtectedRoute> }
             ],
         },
     ])

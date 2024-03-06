@@ -16,6 +16,19 @@ import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOu
 import { archiveNotes, deleteForever, trashNotes, updateColor } from "../services/NoteServices";
 import { useLocation } from "react-router-dom";
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import EditNote from "./EditNote";
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    border: "none",
+    p: 4,
+};
+
 
 
 
@@ -26,7 +39,9 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [isEdit, setEdit] = useState(false);
     const location = useLocation();
     // const [moreMenuOpen, setMoreMenu] = useState(false)
     const open = Boolean(anchorEl);
@@ -44,6 +59,19 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
         setAnchorEl2(null);
         // setMoreMenu(!moreMenuOpen)
     };
+    const handleModalOpen = () => {
+        setEdit(true)
+        setOpenModal(true)
+    };
+    const handleModalClose = () => {
+        setEdit(false)
+        setOpenModal(false);
+    }
+    // const handleOpenModal = () => {
+    //     setOpenModal(true);
+    // console.log(openModal);
+
+    // };
 
     const handleNotesOperation = (action) => {
 
@@ -97,8 +125,14 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
 
     return (
         <>
-            <Card variant="outlined" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} spacing={12} sx={{ width: widthCard, backgroundColor: noteObj.color, boxShadow: "1px 1px 5px black", margin: "5px" }}>
-                <CardContent>
+            <Card variant="outlined" onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                spacing={12}
+                sx={{ width: widthCard, backgroundColor: noteObj.color, boxShadow: "1px 1px 5px black", margin: "5px" }}
+
+            >
+                <CardContent
+                    onClick={handleModalOpen}>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom wra>
                     </Typography>
                     <Typography variant="h5" component="div">
@@ -185,6 +219,20 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
                     </Menu>
                 </CardActions>
             </Card>
+            <Modal
+                open={openModal}
+                onClose={handleModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <EditNote style={{ overflow: "hidden" }}
+                        noteId = {noteObj}
+                        updateNoteList={updateNoteList}
+                        onModalClose={handleModalClose}
+                    />
+                </Box>
+            </Modal>
 
         </>)
 }

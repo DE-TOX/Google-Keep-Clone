@@ -19,7 +19,7 @@ import ViewModeContext from "./ViewModeContext";
 
 function Dashboard() {
     const [toggleDrawer, setToggleDrawer] = useState(false)
-    const [viewMode, setViewMode] = useState('grid');
+    const [viewMode, setViewMode] = useState('list');
     const navigate = useNavigate();
 
     const handleListItemClick = (text) => {

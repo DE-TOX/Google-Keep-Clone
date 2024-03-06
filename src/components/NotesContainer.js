@@ -14,8 +14,9 @@ import ViewModeContext from './ViewModeContext';
 
 
 
-function NoteContainer({updateView}) {
+function NoteContainer({ updateView }) {
     const [noteList, setNoteList] = useState([])
+    const [refreshKey, setRefreshKey] = useState(0);
     const { viewMode, setViewMode } = useContext(ViewModeContext);
     // const notes = []
     // async  ()=>{
@@ -50,12 +51,26 @@ function NoteContainer({updateView}) {
             console.log('Component Unmounted');
         };
     }, []);
+    useEffect(() => {
+        fetchNotes();
+    }, [refreshKey]);
+    const refreshNotes = () => {
+        setRefreshKey(prevKey => prevKey + 1);
+    };
+
 
     const updateNoteList = (action, noteObj) => {
         if (action === "add")
             setNoteList([noteObj, ...noteList])
         else if (action === "archive" || action === "trash") {
             setNoteList(noteList.filter(note => note.id !== noteObj.id));
+        }
+        else if (action === "update") {
+            setNoteList(noteList.map((note) => {
+                if (note.id === noteObj.id) return noteObj
+                return note
+            }))
+            refreshNotes();
         }
         else {
             setNoteList(noteList.map((note) => {
@@ -72,7 +87,7 @@ function NoteContainer({updateView}) {
 
                 <CreateNote style={{ overflow: "hidden" }} updateNoteList={updateNoteList} />
 
-                {viewMode==='grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", justifyContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
+                {viewMode === 'grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", justifyContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
                     {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)}
                 </div> :
                     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "7px", justifyContent: "center", alignItems: "center", marginBottom: 22 }}>

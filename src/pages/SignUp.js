@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 function SignUp() {
     const [userdetails, setDetails] = useState({ firstName: "", lastName: "", email: "", service: "advance", password: "", cpass: "" })
     const [formValid, setFormValid] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         let isValid = true;
@@ -73,20 +75,26 @@ function SignUp() {
                         <h2>Create your Google Account</h2>
                     </div>
                     <div className="inputs">
-                        <input type="text" name="firstName" id="text" className="input" placeholder='First Name*' onChange={handleChange} />
-                        <input type="text" name="lastName" id="text" className="input" placeholder='Last Name*' onChange={handleChange} />
+                        <input type="text" className='inputBox' name="firstName" id="text" placeholder='First Name*' onChange={handleChange} />
+                        <input type="text" name="lastName" className='inputBox' id="text" placeholder='Last Name*' onChange={handleChange} />
                         <div className='email'>
-                            <input type='text' name="email" id="text-email" className="input" placeholder='email*' onChange={handleChange} />
+                            <input type='text' name="email" className='inputBox' id="text-email" placeholder='email*' onChange={handleChange} />
                             <label style={{ fontSize: "0.7em" }}>you can use letters, numbers & periods</label>
                             <br />
                             <p className='p1'>Use my current email instead</p>
                             <br />
                         </div>
-                        <input type="text" name="password" id="text" className="input" placeholder='Password*' onChange={handleChange} />
-                        <input type="text" name="cpass" id="text" className="input" placeholder='Confirm*' onChange={handleChange} />
+                        <input type={
+                            showPassword ? "text" : "password"
+                        } name="password" id="pass" placeholder='Password*' className='inputBox' onChange={handleChange} />
+                        <input type={
+                            showPassword ? "text" : "password"
+                        } name="cpass" id="pass" placeholder='Confirm*' className='inputBox' onChange={handleChange} />
                         <p className='p1'>Use 8 or more characters with a mix of letters, numbers & symbols</p>
                         <div className='checkbox'>
-                            <input type="checkbox" /><p >Show Password</p>
+                            <input type="checkbox" onChange={() =>
+                                setShowPassword((prev) => !prev)
+                            } /><p >Show Password</p>
                         </div>
                     </div>
                     <div class="btn-group">

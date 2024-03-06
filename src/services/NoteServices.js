@@ -107,3 +107,12 @@ export const deleteForever = async (noteObj) => {
         console.error(error);
     }
 }
+
+export const updateNote = async (noteObj) => {
+    try {
+        const response = await axios.post(`${baseUrl}updateNotes`, noteObj, configForNotes())
+        return response
+    } catch (error) {
+        console.error(error);
+    }
+}

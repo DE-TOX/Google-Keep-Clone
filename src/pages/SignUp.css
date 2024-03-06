@@ -52,7 +52,22 @@ h2 {
 
 }
 
-input[type="text"] {
+
+/* input[type="text"] {
+    display: inline-block;
+    border: 1px solid rgb(179, 179, 179);
+    font-size: 16px;
+    font-weight: 200;
+    width: 47%;
+    height: 55px;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 5px;
+} */
+
+.inputBox {
     display: inline-block;
     border: 1px solid rgb(179, 179, 179);
     font-size: 16px;
@@ -66,8 +81,16 @@ input[type="text"] {
     border-radius: 5px;
 }
 
+#pass {
+    border: 1px solid rgb(179, 179, 179);
+    width: 47%;
+}
 
-input:hover {
+#pass:hover {
+    border: 2px solid #1a73e8;
+}
+
+.inputBox:hover {
     border: 2px solid #1a73e8;
 }
 
@@ -173,5 +196,22 @@ label {
 
     .form {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    input[name="lastName"] {
+        display: block;
+        width: 97%;
+    }
+
+    input[name="firstName"] {
+        display: block;
+        width: 97%;
+    }
+
+    #pass {
+        display: block;
+        width: 97%;
     }
 }
