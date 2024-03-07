@@ -53,7 +53,7 @@ h2 {
 }
 
 
-/* input[type="text"] {
+input[type="text"] {
     display: inline-block;
     border: 1px solid rgb(179, 179, 179);
     font-size: 16px;
@@ -65,7 +65,7 @@ h2 {
     background-color: transparent;
     outline: none;
     border-radius: 5px;
-} */
+}
 
 .inputBox {
     display: inline-block;

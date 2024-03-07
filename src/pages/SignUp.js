@@ -25,7 +25,8 @@ function SignUp() {
             isValid = /^[a-zA-Z]+$/.test(value);
         } else if (name === 'email') {
             // Check if the username has a length of at least  5 characters and can include numbers and alphabets
-            isValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
+            isValid = true
+            // isValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
         } else if (name === 'password') {
             // Check if the password contains numbers, special characters, and alphabets
             isValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(value);

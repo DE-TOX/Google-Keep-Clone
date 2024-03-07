@@ -50,10 +50,10 @@ function Login() {
                 <div class="inputs">
 
 
-                    <input type="email" name="email" id="email" class="input" onChange={handleChange} />
-                    <label for="email" class="input-label">Email or phone</label>
-                    <input type="password" name="password" id="password" class="input" onChange={handleChange} />
-                    <label for="password" class="input-label-pass">Password</label>
+                    <input type="email" name="email" id="email" placeholder="Email" class="input" onChange={handleChange} />
+                    {/* <label for="email" class="input-label">Email or phone</label> */}
+                    <input type="password" name="password" id="password" placeholder="Password" class="input" onChange={handleChange} />
+                    {/* <label for="password" class="input-label-pass">Password</label> */}
 
                 </div>
                 <a href="" class="link-btn">Forgot Password?</a>
