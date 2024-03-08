@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Accordion from "@mui/material/Accordion";
@@ -26,10 +26,19 @@ import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOu
 
 
 
-function CreateNote({ updateNoteList, handleEdit}) {
+function CreateNote({ updateNoteList }) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
+    const [noteObj, setNoteObj] = useState({
+        "title": "",
+        "description": "",
+        "isPined": false,
+        "isArchived": false,
+        "isDeleted": false,
+        "color": "#ffffff"
+    });
+    const [bgColor, setbgColor] = useState(noteObj.color);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -49,16 +58,8 @@ function CreateNote({ updateNoteList, handleEdit}) {
         // setMoreMenu(!moreMenuOpen)
     };
 
-    const [noteObj, setNoteObj] = useState({
-        "title": "",
-        "description": "",
-        "isPined": false,
-        "isArchived": false,
-        "isDeleted": false,
-        "color": "#ffffff"
-    });
     const handleColor = (action) => {
-
+        setbgColor(action)
         setNoteObj(prevNoteObj => ({
             ...prevNoteObj,
             color: action
@@ -66,6 +67,7 @@ function CreateNote({ updateNoteList, handleEdit}) {
 
     }
     const handleCreateNote = async () => {
+        setbgColor("#ffffff")
         setIsFirstInputClicked(false)
         if (noteObj.title.length !== 0) {
             const response = await addNotes(noteObj)
@@ -102,14 +104,14 @@ function CreateNote({ updateNoteList, handleEdit}) {
                     </div>
                 ) : (
                     <>
-                        <div style={{ boxShadow: "5px 5px 17px black", borderRadius: "5px" }}>
+                        <div style={{ boxShadow: "5px 5px 17px black", borderRadius: "5px", backgroundColor: bgColor }}>
                             <div style={{ width: "35vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px", marginBottom: "10px" }}>
                                 <input style={{ width: "90%", border: "none" }} type="text" placeholder="Title" onChange={(e) => { noteObj.title = e.target.value }} />
                             </div>
                             <div style={{ width: "35vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
                                 <input style={{ width: "90%", border: "none" }} type="text" placeholder="Take a note..." onChange={(e) => { noteObj.description = e.target.value }} />
                             </div>
-                            <div style={{ width: "35vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "15px" }}>
+                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "15px" }}>
                                 <div style={{ width: "90%", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
                                     <NotificationsOutlinedIcon />
                                     <PersonAddAltOutlinedIcon />

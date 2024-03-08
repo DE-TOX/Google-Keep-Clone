@@ -65,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
+export default function PrimarySearchAppBar({ onMenuButtonClick, updateView }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     // const [ viewMode, setViewMode ] = React.useState("grid");
@@ -143,7 +143,7 @@ export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
                 <IconButton size="large" color="black">
                     <RefreshIcon />
                 </IconButton>
-                <p>Messages</p>
+                <p>Refersh</p>
             </MenuItem>
             <MenuItem>
                 <IconButton
@@ -152,7 +152,7 @@ export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
                 >
                     <SplitscreenSharpIcon />
                 </IconButton>
-                <p>Notifications</p>
+                <p>List View</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -164,7 +164,7 @@ export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+                <p>Logout</p>
             </MenuItem>
         </Menu>
     );
@@ -204,7 +204,10 @@ export default function PrimarySearchAppBar({ onMenuButtonClick,updateView }) {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" color="Black">
+                        <IconButton size="large" color="Black"
+                            onClick={() => {
+                                window.location.reload();
+                            }} >
 
                             <RefreshIcon />
 

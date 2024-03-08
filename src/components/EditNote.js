@@ -98,7 +98,7 @@ function EditNote({ updateNoteList, noteId,onModalClose }) {
                     <div style={{ width: "35vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
                         <input style={{ width: "90%", border: "none" }} type="text" value={noteObj.description} onChange={handleDescriptionChange} />
                     </div>
-                    <div style={{ width: "35vw", display: "flex", justifyContent: "center", alignItems: "center", gap: "15px" }}>
+                    <div style={{  display: "flex", justifyContent: "center", alignItems: "center", gap: "15px" }}>
                         <div style={{ width: "90%", display: "flex", justifyContent: "center", alignItems: "center", gap: "7px" }}>
                             <NotificationsOutlinedIcon />
                             <PersonAddAltOutlinedIcon />
