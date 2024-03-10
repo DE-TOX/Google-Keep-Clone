@@ -27,9 +27,10 @@ import FormatColorResetOutlinedIcon from '@mui/icons-material/FormatColorResetOu
 
 
 function CreateNote({ updateNoteList }) {
-
+    
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorEl2, setAnchorEl2] = useState(null);
+    const [isFirstInputClicked, setIsFirstInputClicked] = useState(false);
     const [noteObj, setNoteObj] = useState({
         "title": "",
         "description": "",
@@ -71,8 +72,6 @@ function CreateNote({ updateNoteList }) {
         setIsFirstInputClicked(false)
         if (noteObj.title.length !== 0) {
             const response = await addNotes(noteObj)
-
-
             noteObj.title = ""
             noteObj.description = ""
             updateNoteList("add", response?.data?.status?.details)
@@ -84,12 +83,9 @@ function CreateNote({ updateNoteList }) {
 
     }
 
-    const [isFirstInputClicked, setIsFirstInputClicked] = useState(false);
 
     const handleFirstInputClick = () => {
-
         setIsFirstInputClicked(true);
-
     };
 
 

@@ -15,7 +15,6 @@ const configForNotes = () => {
 export const getNotes = async () => {
     try {
         const response = await axios.get(`${baseUrl}getNotesList`, configForNotes());
-        console.log(response.data.data);
         return (response.data.data.data)
         // window.localStorage.setItem(, value);
         // Handle successful signup (e.g., redirect to login page)
@@ -50,7 +49,6 @@ export const archiveNotes = async (noteObj) => {
 export const getArchive = async () => {
     try {
         const response = await axios.get(`${baseUrl}getArchiveNotesList`, configForNotes());
-        console.log(response.data.data.data);
         return (response.data.data.data)
         // window.localStorage.setItem(, value);
         // Handle successful signup (e.g., redirect to login page)

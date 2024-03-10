@@ -1,7 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { getNotes } from "../services/NoteServices";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
 import NoteCard from "./NoteCard";
 import CreateNote from "./CreateNote";
 import ViewModeContext from './ViewModeContext';
@@ -59,14 +57,14 @@ function NoteContainer({ updateView }) {
         <>
             <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
                 <CreateNote style={{ overflow: "hidden" }} updateNoteList={updateNoteList} />
-                {viewMode === 'grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", justifyContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
+                {viewMode === 'grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", flexWrap: "wrap", justifyContent: "center", alignContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
 
-                {isLoading ? (<span>Loading...</span>) : noteList.length ? noteList.map(ele => <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} />) : (<span>Please add a note</span>)}
-{/* {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)} */}
+                    {isLoading ? (<span>Loading...</span>) : noteList.length ? noteList.map(ele => <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} />) : (<span>Please add a note</span>)}
+                    {/* {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)} */}
                 </div> :
                     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "7px", justifyContent: "center", alignItems: "center", marginBottom: 22 }}>
-                        
-                            {isLoading ? (<span>Loading...</span>) : noteList.length ? noteList.map(ele => <NoteCard widthCard={260} noteObj={ele} updateNoteList={updateNoteList} />) : (<span>Please add a note</span>)}
+
+                        {isLoading ? (<span>Loading...</span>) : noteList.length ? noteList.map(ele => <NoteCard widthCard={260} noteObj={ele} updateNoteList={updateNoteList} />) : (<span>Please add a note</span>)}
                         {/* {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={260} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)} */}
                     </div>}
             </div>
@@ -74,3 +72,5 @@ function NoteContainer({ updateView }) {
     )
 }
 export default NoteContainer
+
+{/* <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "5px", marginBottom: 22 }}> */ }

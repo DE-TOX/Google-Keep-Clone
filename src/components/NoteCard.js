@@ -128,6 +128,7 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
             <Card variant="outlined" onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 spacing={12}
+                style={{ alignSelf: "baseline" }}
                 sx={{ width: widthCard, backgroundColor: noteObj.color, boxShadow: "1px 1px 5px black", margin: "5px" }}
 
             >
@@ -227,7 +228,7 @@ function NoteCard({ updateNoteList, noteObj, widthCard, updateArchiveList, updat
             >
                 <Box sx={style}>
                     <EditNote style={{ overflow: "hidden" }}
-                        noteId = {noteObj}
+                        noteId={noteObj}
                         updateNoteList={updateNoteList}
                         onModalClose={handleModalClose}
                     />
