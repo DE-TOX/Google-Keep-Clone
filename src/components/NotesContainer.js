@@ -8,7 +8,7 @@ import ViewModeContext from './ViewModeContext';
 function NoteContainer({ updateView }) {
     const [noteList, setNoteList] = useState([])
     const [refreshKey, setRefreshKey] = useState(0);
-    const { viewMode, setViewMode } = useContext(ViewModeContext);
+    const { viewMode } = useContext(ViewModeContext);
     const [isLoading, setIsLoading] = useState(true);
     const fetchNotes = async () => {
         try {
@@ -53,11 +53,13 @@ function NoteContainer({ updateView }) {
             }))
         }
     }
+    // const drawerMargin = drawerOpen ? 250 : 5;
+    // console.log(drawerMargin);
     return (
         <>
             <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
                 <CreateNote style={{ overflow: "hidden" }} updateNoteList={updateNoteList} />
-                {viewMode === 'grid' ? <div style={{ display: "flex", flexDirection: "column", gap: "15px", flexWrap: "wrap", justifyContent: "center", alignContent: "center", alignItems: "center", width: "100vw", marginBottom: 22 }}>
+                {viewMode === 'grid' ? <div style={{  display: "flex", flexDirection: "column", gap: "15px", flexWrap: "wrap", justifyContent: "center", alignContent: "center", alignItems: "center", marginBottom: 22 }}>
 
                     {isLoading ? (<span>Loading...</span>) : noteList.length ? noteList.map(ele => <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} />) : (<span>Please add a note</span>)}
                     {/* {noteList.length ? noteList?.map(ele => { return <NoteCard widthCard={500} noteObj={ele} updateNoteList={updateNoteList} /> }) : (<span> Loading....</span>)} */}

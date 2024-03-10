@@ -1,4 +1,4 @@
-import { useState} from "react"
+import { useState } from "react"
 import { Outlet } from "react-router-dom"
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
 import ViewModeContext from "./ViewModeContext";
@@ -13,17 +13,17 @@ function Dashboard() {
     const updateView = (viewMode) => {
         setViewMode(viewMode)
     }
-    const handleClose =()=>{
+    const handleClose = () => {
         setToggleDrawer(false)
     }
 
     return (
         <>
-            <ViewModeContext.Provider value={{ viewMode, setViewMode }}>
+            <ViewModeContext.Provider value={{ viewMode, setViewMode,toggleDrawer,setToggleDrawer }}>
                 <PrimarySearchAppBar onMenuButtonClick={() => setToggleDrawer(!toggleDrawer)} updateView={updateView} />
                 <br />
-                <TemporaryDrawer open={toggleDrawer} onClose={handleClose} />
-                <Outlet updateView={viewMode} />
+                <TemporaryDrawer open={toggleDrawer} onClose={handleClose}/>
+                <Outlet />
             </ViewModeContext.Provider>
         </>
     )

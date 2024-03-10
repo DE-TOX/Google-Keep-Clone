@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from "@mui/material/List";
@@ -14,55 +14,85 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 
 
-export default function TemporaryDrawer({ open ,onClose}) {
-
+export default function TemporaryDrawer({ open, onClose }) {
+    const [activeButton, setActiveButton] = useState(null);
     const navigate = useNavigate();
 
     const handleListItemClick = (text) => {
         const route = `${text.toLowerCase()}`
         navigate(route);
+        setActiveButton(text);
     };
+    const drawerWidthOpen = 190;
+    const drawerWidthClosed = 57;
+
+    const DrawerList = (
+        <Box
+            sx={{
+
+                width: open ? drawerWidthOpen : drawerWidthClosed,
+                marginRight: 200,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: open ? drawerWidthOpen : drawerWidthClosed,
+                    boxSizing: 'border-box',
+                    transition: (theme) =>
+                        theme.transitions.create('width', {
+                            easing: theme.transitions.easing.sharp,
+                            duration: theme.transitions.duration.enteringScreen,
+                        }),
+                },
+            }}
+            role="presentation"
+        >
+            <List>
+                {["Notes", "Archive", "Trash"].map((text, index) => (
+
+                    <ListItem key={text} disablePadding sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <ListItemButton onClick={() =>
+                            handleListItemClick(text)}
+                            sx={{
+                                backgroundColor: activeButton === text ? '#feefc3' : 'inherit',
+                                '&:hover': {
+                                    backgroundColor: '#feefc3',
+                                },
+                                borderRadius: 70,
+                            }}
+
+                        >
+                            <ListItemIcon>
+                                {index === 0 && <LightbulbOutlinedIcon />}
+                                {index === 1 && <ArchiveOutlinedIcon />}
+                                {index === 2 && <DeleteOutlineOutlinedIcon />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    )
 
     return (
-        <SwipeableDrawer
-            anchor={'left'}
+        <Drawer
             open={open}
             onClose={onClose}
-            sx={{ zIndex: 0 }}
-            margin-top={"50px"}
+            variant="permanent"
+            sx={{
+                width: open ? drawerWidthOpen : drawerWidthClosed,
+                '& .MuiDrawer-paper': {
+                    width: open ? drawerWidthOpen : drawerWidthClosed,
+                    boxSizing: 'border-box',
+                    marginTop: '8vh',
+                    height: '100vh',
+                }
+            }}
         >
-            <Box
-                sx={{ width: 250 }}
-                role="presentation"
-            >
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    margin={"2%"}
-                >
-                    <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" style={{ height: "40px", width: "40px" }} alt="" />
-                    FUNDONOTES
-                </Typography>
-                <List style={{ marginTop: "100px" }}>
-                    {["Notes", "Archive", "Trash"].map((text, index) => (
 
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton onClick={() =>
-                                handleListItemClick(text)}>
-                                <ListItemIcon>
-                                    {index === 0 && <LightbulbOutlinedIcon />}
-                                    {index === 1 && <ArchiveOutlinedIcon />}
-                                    {index === 2 && <DeleteOutlineOutlinedIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+            {DrawerList}
 
-            </Box>
-        </SwipeableDrawer>
+
+
+        </Drawer>
     )
 }
