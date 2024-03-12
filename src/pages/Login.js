@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { loginUser } from '../services/UserServices';
 import { useNavigate } from "react-router-dom";
-// import Box from '@mui/material/Box';
 import './Login.css';
 
 function Login() {
@@ -51,9 +50,9 @@ function Login() {
 
 
                     <input type="email" name="email" id="email" placeholder="Email" class="input" onChange={handleChange} />
-                    {/* <label for="email" class="input-label">Email or phone</label> */}
+
                     <input type="password" name="password" id="password" placeholder="Password" class="input" onChange={handleChange} />
-                    {/* <label for="password" class="input-label-pass">Password</label> */}
+
 
                 </div>
                 <a href="" class="link-btn">Forgot Password?</a>
